@@ -1,6 +1,8 @@
 import unittest
-
+import os
 from ex2 import Ticket, reconstruct_trip
+
+os.system('clear')
 
 
 class TestEx2(unittest.TestCase):
