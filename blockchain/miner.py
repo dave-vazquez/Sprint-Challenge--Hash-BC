@@ -1,6 +1,6 @@
 import hashlib
 import requests
-
+import os
 import sys
 
 from uuid import uuid4
@@ -8,6 +8,13 @@ from uuid import uuid4
 from timeit import default_timer as timer
 
 import random
+from hashtables import (HashTable,
+                        hash_table_insert,
+                        hash_table_remove,
+                        hash_table_retrieve,
+                        hash_table_resize)
+
+os.system('clear')
 
 
 def proof_of_work(last_proof):
@@ -21,10 +28,15 @@ def proof_of_work(last_proof):
     """
 
     start = timer()
-
     print("Searching for next proof")
-    proof = 0
-    #  TODO: Your code here
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    # hash(p)
+
+    last_hash = hashlib.sha256(f'{last_proof}'.encode()).hexdigest()
+    proof = str(random.randint(0, 99999999)).rjust(5, "0")
+
+    while not valid_proof(last_hash, proof):
+        proof = str(random.randint(0, 99999999)).rjust(5, "0")
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
@@ -39,8 +51,19 @@ def valid_proof(last_hash, proof):
     IE:  last_hash: ...AE912345, new hash 12345E88...
     """
 
-    # TODO: Your code here!
-    pass
+    proof = f"{proof}".encode()
+    proof_hash = hashlib.sha256(proof).hexdigest()
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    first_five = proof_hash[:5]
+    last_five = last_hash[-5:]
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    # print(f"first_five: {first_five}")
+    # print(f"last_five:  {last_five}")
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    if first_five == last_five:
+        print(f"{first_five} == {last_five}")
+
+    return first_five == last_five
 
 
 if __name__ == '__main__':
@@ -48,7 +71,7 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         node = sys.argv[1]
     else:
-        node = "https://lambda-coin.herokuapp.com/api"
+        node = "https://lambda-coin-test-1.herokuapp.com/api"
 
     coins_mined = 0
 
