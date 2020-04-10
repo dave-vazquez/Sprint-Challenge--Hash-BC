@@ -60,9 +60,6 @@ def valid_proof(last_hash, proof):
     # print(f"first_five: {first_five}")
     # print(f"last_five:  {last_five}")
     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    if first_five == last_five:
-        print(f"{first_five} == {last_five}")
-
     return first_five == last_five
 
 
