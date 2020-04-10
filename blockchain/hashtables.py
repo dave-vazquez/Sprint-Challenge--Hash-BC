@@ -9,15 +9,6 @@ class LinkedPair:
         self.value = value
         self.next = None
 
-    # def __str__(self):
-    #     return_str = ""
-    #     current = self
-    #     while current is not None:
-    #         return_str += f"{{ key: {current.key}, value: {current.value} }} ->\n"
-    #         current = current.next
-
-    #     return return_str + "None"
-
 
 # '''
 # Resizing hash table
@@ -27,21 +18,14 @@ class HashTable:
         self.capacity = capacity
         self.storage = [None] * capacity
 
-    # def __str__(self):
-    #     return_str = "[\n"
 
-    #     for pair in self.storage:
-    #         return_str += f"{pair},\n"
+# Hash int
+def hash(x, max):
+    x = ((x >> 16) ^ x) * 0x45d9f3b
+    x = ((x >> 16) ^ x) * 0x45d9f3b
+    x = ((x >> 16) ^ x)
 
-    #     return return_str + "]"
-
-
-def hash(string, max):
-    hash = 5381
-    for char in string:
-        hash = ((hash << 5) + hash) + ord(char)
-
-    return hash % max
+    return x % max
 
 
 def hash_table_insert(hash_table, key, value):

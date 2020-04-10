@@ -1,6 +1,8 @@
 import unittest
-
+import os
 from ex1 import get_indices_of_item_weights
+
+os.system('clear')
 
 
 class TestEx1(unittest.TestCase):
